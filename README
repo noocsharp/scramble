@@ -1,0 +1,5 @@
+# Scramble
+
+A very simple CLI 3x3 Rubik's cube scrambler - because the only other one I could find was written in Javascript.
+
+This one just checks for typographical repetitions rather than checking if the same state appeared previously in the scramble. I might add it later though.
