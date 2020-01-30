@@ -44,7 +44,8 @@ int main(int argc, char** argv) {
     uint8_t length = DEFAULT_LENGTH;
 
     if (argc > 2) {
-        printf("%s: Too many arguments", argv[0]);
+        printf("%s: Too many arguments\n", argv[0]);
+        return -1;
     } else if (argc == 2) {
         if (argv[1] == "-h" || argv[1] == "--help") {
             printf("%s\n", help);
@@ -56,12 +57,12 @@ int main(int argc, char** argv) {
 
         if (*endptr != '\0') {
             printf("%s: invalid length\n", argv[0]);
-            return -1;
+            return -2;
         }
 
         if (0 > newlength || newlength > 255) {
             printf("%s: invalid length, max of 255\n", argv[0]);
-            return -2;
+            return -3;
         }
 
         length = newlength;
