@@ -1,3 +1,4 @@
+#include <string.h>
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
@@ -10,10 +11,7 @@ static const char* pmoves[3][6] = { {"U", "D", "L", "R", "F", "B"}, {"U'", "D'",
 
 const char help[] = "usage: scramble [LENGTH]";
 
-static char const** typo_scramble(uint8_t length) {
-    char const** moves = calloc(length, sizeof(char*));
-
-    if (moves == NULL) return NULL;
+static int typo_scramble(const char** moves, uint8_t length) {
 
     uint8_t last_side = 0;
 
@@ -37,7 +35,7 @@ static char const** typo_scramble(uint8_t length) {
         last_side = side;
     }
 
-    return moves;
+    return 0;
 }
 
 int main(int argc, char** argv) {
@@ -47,7 +45,7 @@ int main(int argc, char** argv) {
         printf("%s: Too many arguments\n", argv[0]);
         return -1;
     } else if (argc == 2) {
-        if (argv[1] == "-h" || argv[1] == "--help") {
+        if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0) {
             printf("%s\n", help);
             return 0;
         }
@@ -72,15 +70,13 @@ int main(int argc, char** argv) {
     getrandom((void*) &seed, 4, GRND_NONBLOCK);
     srand(seed);
 
-    const char** moves;
-
+    const char* moves[length];
     
-    if ((moves = typo_scramble(length)) != NULL) {
+    if (typo_scramble(moves, length) == 0) {
         for (uint8_t i = 0; i < length; ++i) {
             printf("%s ", moves[i]);
         }
         printf("\n");
-        free(moves);
     }
 
     return 0;

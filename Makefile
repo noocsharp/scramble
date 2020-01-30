@@ -2,7 +2,7 @@ PREFIX = /usr/local
 CC = cc
 
 all:
-	${CC} main.c -o scramble
+	${CC} scramble.c -o scramble
 
 clean:
 	rm -f scramble
